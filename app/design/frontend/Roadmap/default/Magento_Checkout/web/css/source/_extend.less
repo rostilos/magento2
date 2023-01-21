@@ -1,0 +1,32 @@
+& when (@media-common = true) {
+    .cart-item-flex {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        min-height: 36px;
+        .cart-item-cart-upd {
+            height: 100%;
+            min-height: 36px;
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .cart-item-flex{
+        flex-wrap: wrap;
+        column-gap: 5px;
+        .field.qty{
+            flex: 0 0 100%;
+            input{
+                width: 100% !important;
+            }
+        }
+        .cart-item-cart-qty-dec{
+            order: 2;
+            flex-grow: 1;
+        }
+        .cart-item-cart-qty-inc{
+            order: 3;
+            flex-grow: 1;
+        }
+    }
+}
