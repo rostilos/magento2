@@ -1,0 +1,15 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<option value="" 
+        click="element.selectShippingMethod" 
+        ko-value="JSON.stringify(method)"
+        attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
+     'checked': element.rates().length == 1 || element.isSelected"
+        text="method.method_title"
+         ko-checked="element.isSelected"
+>
+</option>

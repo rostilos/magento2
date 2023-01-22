@@ -1,0 +1,15 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="form-shipping-address">
+    <select data-bind="event:{ change: selectShippingMethod}">
+        <!-- ko foreach: { data: rates(), as: 'method'} -->
+        <!--ko template: { name: element.shippingMethodItemTemplate} --><!-- /ko -->
+        <!-- /ko -->
+    </select>
+
+    <!--ko template: { name: element.shippingMethodItemSelectedTemplate} --><!-- /ko -->
+</div>
