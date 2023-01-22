@@ -23,7 +23,7 @@
                     data-bind="attr: {
                        id: 'cart-item-'+$parent.item_id+'-qty',
                        'data-cart-item': $parent.item_id,
-                       }, value: $parent.qty"
+                       }, value: $parent.qty, event:{ change: handleInputChange}"
                     type="number"
                     min="0"
                     size="4"

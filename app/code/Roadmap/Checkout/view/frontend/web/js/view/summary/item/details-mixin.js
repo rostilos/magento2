@@ -85,6 +85,16 @@ define([
         /**
          * @private
          */
+        handleInputChange: function(data,event) {
+            const inputEl = $(event.currentTarget);
+            const itemId = inputEl.data("cart-item");
+            const inputValue = inputEl.val();
+            this._updateCartAfterChangeQty(inputEl, itemId, inputValue);
+        },
+
+        /**
+         * @private
+         */
          _updateCartAfterChangeQty: function (inputEl, itemId, changedValue) {
             //  call upd function only after .8s after last click on controls btns
             clearTimeout(this.updateCardTimer);
