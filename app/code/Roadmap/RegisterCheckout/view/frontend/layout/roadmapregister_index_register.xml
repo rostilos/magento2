@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root" label="Root">
+        <block name="checkout.login.tabs" as="tabs" template="Roadmap_RegisterCheckout::tabs.phtml">
+            <block class="Magento\Framework\View\Element\Js\Components" 
+                   name="customer_account_create_head_components" 
+                   template="Magento_Customer::js/components.phtml"
+            />
+            
+            <!-- register form -->
+            <block class="Magento\Customer\Block\Form\Register" 
+                   name="customer_form_register" 
+                   template="Roadmap_RegisterCheckout::register.phtml" 
+                   as="register-form">
+                <container name="form.additional.info" as="form_additional_info"/>
+                <container name="customer.form.register.fields.before" as="form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
+            </block>
+            <!-- customer login form -->
+            <block class="Magento\Customer\Block\Form\Login" 
+                   name="customer_form_login" 
+                   template="Roadmap_RegisterCheckout::login.phtml" 
+                   as="login-form">
+                <container name="form.additional.info" as="form_additional_info"/>
+                <arguments>
+                    <argument name="login_button_view_model" xsi:type="object">Magento\Customer\ViewModel\LoginButton</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+                <arguments>
+                    <argument name="triggers" xsi:type="array">
+                        <item name="registerSubmitButton" xsi:type="string">.action.submit</item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Template" name="form_additional_info_customer" template="Magento_Customer::additionalinfocustomer.phtml"/>
+        </block>
+
+    </container>
+</layout>
+

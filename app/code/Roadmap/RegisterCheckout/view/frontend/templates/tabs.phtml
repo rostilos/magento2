@@ -1,0 +1,18 @@
+<div class="product data items"
+     data-mage-init='{"mage/tabs": {"openedState": "active", "animate": {"duration": 100}}}'
+>
+    <div class="item title" data-role="collapsible">
+        <a class="switch" data-toggle="trigger" href="#tab-login">Login</a>
+    </div>
+    <div id="tab-login" class="item content" data-role="content">
+        <?= $block->getChildHtml('login-form') ?>
+    </div>
+
+    <div class="item title" data-role="collapsible">
+        <a class="switch" data-toggle="trigger" href="#tab-register">Register</a>
+    </div>
+    <div id="tab-register" class="item content" data-role="content">
+        <?= $block->getChildHtml('register-form') ?>
+    </div>
+</div>
+<?= $block->getChildHtml('form_additional_info_customer') ?>

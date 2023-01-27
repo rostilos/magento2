@@ -11,7 +11,6 @@ define(["jquery"], function ($) {
         }
         $(document).on('input', options.input.field,function(e){
             $.validator.validateSingleElement(e.currentTarget)
-            console.log($.validator.validateSingleElement);
         })
         $.validator.addMethod(
             "custom-validation",
