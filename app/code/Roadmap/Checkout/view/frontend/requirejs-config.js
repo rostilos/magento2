@@ -7,6 +7,8 @@ var config = {
                 "Roadmap_Checkout/template/shipping-address/shipping-method-list.html",
             "Magento_Checkout/template/shipping-address/shipping-method-item.html":
                 "Roadmap_Checkout/template/shipping-address/shipping-method-item.html",
+            "Magento_Checkout/template/payment-methods/list.html":
+                "Roadmap_Checkout/template/payment-methods/list.html",
         },
     },
     config: {
@@ -17,6 +19,9 @@ var config = {
             "Magento_Checkout/js/view/shipping": {
                 "Roadmap_Checkout/js/view/shipping-mixin": true,
             },
+            "Magento_Checkout/js/view/payment/list" : {
+                "Roadmap_Checkout/js/view/payment/list-mixin": true,
+            }
         },
     },
 };

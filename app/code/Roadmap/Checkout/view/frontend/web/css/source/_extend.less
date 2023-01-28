@@ -1,0 +1,18 @@
+.checkout-payment-method .payment-method-title{
+    display: none;
+}
+
+.items.payment-methods .payment-methods-select{
+    margin-bottom: 30px;
+}
+
+& when (@media-target = 'mobile'), (@media-target = 'all') {
+
+    @media all and (max-width: (@screen__s - 1)) {
+        .items.payment-methods .payment-methods-select{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+
+}
