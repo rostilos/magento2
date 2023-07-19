@@ -6,4 +6,4 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::THEME, 'frontend/Roadmap/default', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Roadmap_CollapsibleWidget', __DIR__);

@@ -1,0 +1,22 @@
+& when (@media-common = true) {
+    .collapsible__title{
+        display: flex;
+        align-items: center;
+    }
+    .collapsible__title > *{
+        margin-top: 0;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    .collapsible__trigger{
+        transition: all .3s ease-in-out;
+        margin-left: 8px;
+    }
+    .collapsible.active > .collapsible__title > .collapsible__trigger{
+        transform: rotate(180deg);
+    }
+    .collapsible__trigger svg{
+        width: 20px;
+        height: 20px;
+    }
+}
