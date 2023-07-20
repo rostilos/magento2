@@ -1,0 +1,36 @@
+<h3>Observable value:</h3>
+<p>Text in uiExample component:</p>
+<p style="color: red" data-bind="text: text"></p>
+
+<h3>Literals example</h3>
+<p style="color: red" data-bind="text: lileralExample"></p>
+
+<h3>JQueryUi widget in ko template (collapsible)</h3>
+
+<div class="collapsible" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+    <div class="collapsible__title" data-role="title" class="button" style="display:flex; align-items: center;" >
+        <h4>Title</h4>
+        <p class="collapsible__trigger" data-role="trigger">
+            <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4L12 20M12 20L18 14M12 20L6 14" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </p>
+    </div>
+    
+    <div data-role="content">
+        Collapsible content
+    </div>
+</div>
+
+
+<h3>EXPORT EXAMPLE:</h3>
+<p>'example' scope, statefull:</p>
+<input
+    class="input-text"
+    type="email"
+    data-bind="textInput: email"
+    name="username"
+    data-validate="{required:true, 'validate-email':true}"
+    id="customer-email"
+/>
+

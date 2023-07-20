@@ -1,0 +1,86 @@
+<h2>UI Components Example</h2>
+<div data-bind="scope: 'example'">
+    <h3>Observable value:</h3>
+    <p>Text in uiExample component:</p>
+    <p style="color: red" data-bind="text: text"></p>
+
+    <h3>EXPORT EXAMPLE:</h3>
+    <p>'example' scope:</p>
+    <input
+        class="input-text"
+        type="email"
+        data-bind="
+                textInput: email"
+        name="username"
+        data-validate="{required:true, 'validate-email':true}"
+        id="customer-email"
+    />
+</div>
+<br />
+<div data-bind="scope: 'exports'">
+    <p>'exports' scope, text exported from 'example' scope:</p>
+    <input
+        class="input-text"
+        type="email"
+        data-bind="
+                textInput: email"
+        name="username"
+        data-validate="{required:true, 'validate-email':true}"
+        id="customer-email"
+    />
+</div>
+
+<h3>IMPORT EXAMPLE:</h3>
+<div data-bind="scope: 'imports'">
+    <p>'imports' scope, text imported from 'example' scope:</p>
+    <input
+        class="input-text"
+        type="email"
+        data-bind="
+                textInput: email"
+        name="username"
+        data-validate="{required:true, 'validate-email':true}"
+        id="customer-email"
+    />
+</div>
+
+<h3>LINKS EXAMPLE:</h3>
+<div data-bind="scope: 'links'">
+    <p>'links' scope, text linked to 'example' scope:</p>
+    <input
+        class="input-text"
+        type="email"
+        data-bind="
+                textInput: email"
+        name="username"
+        data-validate="{required:true, 'validate-email':true}"
+        id="customer-email"
+    />
+</div>
+
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "example": {
+                        "component": "Roadmap_UiComponents/js/view/uiExample",
+                        "exports": {
+                            "email": "exports:email"
+                        }
+                    },
+                    "exports": {
+                        "component": "Roadmap_UiComponents/js/view/uiExport"
+                    },
+                    "imports": {
+                        "component": "Roadmap_UiComponents/js/view/uiImport"
+                    },
+                    "links": {
+                        "component": "Roadmap_UiComponents/js/view/uiLinks"
+                    }
+                }
+            }
+        }
+    }
+</script>

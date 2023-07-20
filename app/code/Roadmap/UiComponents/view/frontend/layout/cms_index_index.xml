@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <!-- <block name="ui.example" template="Roadmap_UiComponents::uiExample.phtml" /> -->
+
+            <referenceBlock name="page.main.title" remove="true" />
+            <block name="ui.example.xml" template="Roadmap_UiComponents::uiExampleXML.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="example" xsi:type="array">
+                                <item name="component" xsi:type="string">Roadmap_UiComponents/js/view/uiExample</item>
+                                <item name="template" xsi:type="string">Roadmap_UiComponents/example</item>
+                                <item name="exports" xsi:type="array">
+                                    <item name="email" xsi:type="string">exports:email</item>
+                                </item>
+                            </item>
+
+                            <!-- child groud -->
+                            <item name="parent" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                                <item name="template" xsi:type="string">Roadmap_UiComponents/childGroup/parent</item>
+
+                                <item name="children" xsi:type="array">
+                                    <item name="child_a" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">2</item>
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="text" xsi:type="string">text</item>
+                                        </item>
+                                    </item>
+
+                                    <item name="child_b" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">1</item>
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="desc" xsi:type="string">desc</item>
+                                        </item>
+                                        <item name="displayArea" xsi:type="string">child_b</item>
+                                    </item>
+                                </item>
+                            </item>
+
+                            <!-- exports -->
+                            <item name="exports" xsi:type="array">
+                                <item name="component" xsi:type="string">Roadmap_UiComponents/js/view/uiExport</item>
+                                <item name="template" xsi:type="string">Roadmap_UiComponents/exports</item>
+                            </item>
+
+                            <!-- imports -->
+                            <item name="imports" xsi:type="array">
+                                <item name="component" xsi:type="string">Roadmap_UiComponents/js/view/uiImport</item>
+                                <item name="template" xsi:type="string">Roadmap_UiComponents/imports</item>
+                                <item name="imports" xsi:type="array">
+                                    <item name="email" xsi:type="string"><![CDATA[${$.provider}:email]]></item>
+                                </item>
+                                <item name="deps" xsi:type="array">
+                                    <item name="0" xsi:type="string">exports</item>
+                                </item>
+                            </item>
+
+                            <!-- links -->
+                            <item name="links" xsi:type="array">
+                                <item name="component" xsi:type="string">Roadmap_UiComponents/js/view/uiLinks</item>
+                                <item name="template" xsi:type="string">Roadmap_UiComponents/links</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer >
+    </body>
+</page>
