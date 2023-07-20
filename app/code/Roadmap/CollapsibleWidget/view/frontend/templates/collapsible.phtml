@@ -1,3 +1,5 @@
+<h1>Collapsible widget example</h1>
+
 <!-- 1st collapsible el -->
 <div class="collapsible" 
      data-mage-init='{
@@ -30,7 +32,7 @@
 <!-- 2nd collapsible el (ajax) -->
 <div class="collapsible" id="collapsibleAjax">
     <div data-ajax=true 
-         href="<?= $block->getUrl('roadmap/index/index')?>" 
+         href="<?= $block->getUrl('roadmap/index/index') ?>" 
          class="collapsible__title" 
          data-role="title" 
          class="button" 
@@ -46,7 +48,8 @@
     </div>
     <div data-role="content"></div>
 </div>
-
+<br/>
+<br/>
 <script>
     require(['jquery','collapsible','loader'], function ($) {
         $("#collapsibleAjax").collapsible({ 
@@ -61,7 +64,9 @@
         const ajaxCollapsibleEl = $('#collapsibleAjax');
         
         function fetchAjaxCollapsibleContent() {
-            const ajaxContentEndPoint = "<?= $block->getUrl('roadmap/index/index')?>";
+            const ajaxContentEndPoint = "<?= $block->getUrl(
+                'roadmap/index/index'
+            ) ?>";
             ajaxCollapsibleEl.trigger('processStart');
             $.ajax({
                 url: ajaxContentEndPoint,
