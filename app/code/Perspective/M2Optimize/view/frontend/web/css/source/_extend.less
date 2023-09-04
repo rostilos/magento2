@@ -1,0 +1,84 @@
+& when (@media-common = true) {
+    .fake-wchat-btn {
+        border-radius: 34px 8px 34px 34px;
+        bottom: 6px;
+        box-shadow: 0 5px 4px 0 rgb(0 0 0 / 26%);
+        color: #fff;
+        cursor: pointer;
+        display: table;
+        position: fixed;
+        bottom: 20px;
+        right: 18px;
+        z-index: 9995;
+        height: 60px;
+        width: 60px;
+        background-color: #7673f9 !important;
+        color: #ffffff !important;
+        border-color: transparent #7673f9 transparent transparent;
+    }
+
+    .fake-wchat-btn-icon {
+        border-radius: 6px 6px 6px 2px;
+        height: 17px;
+        left: 32%;
+        position: absolute;
+        top: 37%;
+        width: 38%;
+        background: #fff;
+    }
+
+    .fake-wchat-btn-icon::after {
+        border-radius: 2px 2px 2px 2px;
+        border-top: 5px;
+        content: "";
+        height: 2px;
+        left: 4px;
+        position: absolute;
+        top: 10px;
+        width: 44%;
+        background-color: #7673f9;
+    }
+
+    .fake-wchat-btn-icon::before {
+        border-radius: 2px 2px 2px 2px;
+        border-top: 5px;
+        content: "";
+        height: 2px;
+        left: 4px;
+        position: absolute;
+        top: 5px;
+        width: 65%;
+        background-color: #7673f9;
+    }
+
+    .fake-wchat-btn-cover-spin,
+    .spin-loader {
+        position: absolute;
+        width: 100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+
+    .fake-wchat-btn-cover-spin::after,
+    .spin-loader::after {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 40px;
+        margin: auto;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 0.7);
+        border-top-color: transparent;
+        border-width: 4px;
+        border-radius: 50%;
+        -webkit-animation: spin 0.8s linear infinite;
+        animation: spin 0.8s linear infinite;
+    }
+    @media screen and (min-width: 640px){
+        .fake-wchat-btn.dt-hide, .fake-wchat-btn-icon.dt-hide{
+            display:none;
+        }
+    }
+}

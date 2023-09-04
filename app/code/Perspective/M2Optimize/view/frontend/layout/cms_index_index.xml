@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+       <link src="Perspective_M2Optimize::js/leaflet-map.js"/>               
+    </head>
+    <body>
+        <referenceContainer name="main">
+            <block name="images.lazy-load" template="Perspective_M2Optimize::images/lazy-load-attributes.phtml" />
+            <block name="images.cls" template="Perspective_M2Optimize::images/image-cls.phtml" />
+            <block name="scripts.google-map" template="Perspective_M2Optimize::scripts/leaflet-map.phtml" />
+        </referenceContainer>
+    </body>
+</page>
