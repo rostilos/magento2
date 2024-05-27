@@ -41,7 +41,6 @@ jobs:
               -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
               -Dsonar.sources=. \
               -Dsonar.inclusions=${{ steps.diff.outputs.modified }}
-              -Dsonar.token=${{ secrets.SONAR_TOKEN }}
           fi
 
 #      - uses: actions/checkout@v4
