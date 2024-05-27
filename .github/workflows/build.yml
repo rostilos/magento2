@@ -15,11 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SonarQube scanner
-        run: |
-           wget -qO- https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip | sudo unzip -d /opt/
-           export PATH=/opt/sonar-scanner-4.6.2.2472-linux/bin:$PATH
-
       - name: Identify modified files
         id: modified_files
         run: |
@@ -28,6 +23,7 @@ jobs:
           echo "::set-output name=files::$MODIFIED_FILES"
 
       - name: Run SonarQube analysis
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_LOGIN: ${{ secrets.SONARQUBE_TOKEN }}
