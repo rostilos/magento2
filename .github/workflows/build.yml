@@ -41,6 +41,8 @@ jobs:
               -Dsonar.projectKey=magento2test \
               -Dsonar.sources=. \
               -Dsonar.inclusions=${{ steps.diff.outputs.modified }}
+              -Dsonar.login=admin \
+              -Dsonar.password=12117aA
           fi
 
 #      - uses: actions/checkout@v4

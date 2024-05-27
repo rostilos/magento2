@@ -19,12 +19,12 @@ class DiInfoCommand extends Command
     /**
      * Command name
      */
-    const COMMAND_NAME = 'dev:di:info';
+    const COMMAND_NAME = 'dev:di:info'
 
     /**
      * input name
      */
-    const CLASS_NAME = 'class'
+    const CLASS_NAME = 'class';
 
     /**
      * @var Information
