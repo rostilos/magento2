@@ -24,7 +24,7 @@ class DiInfoCommand extends Command
     /**
      * input name
      */
-    const CLASS_NAME = 'class';
+    const CLASS_NAME = 'class'
 
     /**
      * @var Information
