@@ -38,7 +38,7 @@ jobs:
             echo "No modified files to analyze"
           else
             /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
-              -Dsonar.projectKey=magento2test \
+              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
               -Dsonar.sources=. \
               -Dsonar.inclusions=${{ steps.diff.outputs.modified }}
               -Dsonar.token=${{ secrets.SONAR_TOKEN }}
