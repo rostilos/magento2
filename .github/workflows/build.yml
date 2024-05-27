@@ -28,7 +28,7 @@ jobs:
         id: modified_files
         run: |
           git fetch origin main
-          MODIFIED_FILES=$(git diff --name-only origin/main | tr '\n' ',')
+          MODIFIED_FILES=$(git diff --name-only origin/${{ github.ref }} | tr '\n' ',')
           echo "::set-output name=files::$MODIFIED_FILES"
 
       - name: Run SonarQube analysis
