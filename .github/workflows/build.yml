@@ -24,25 +24,26 @@ jobs:
           unzip sonar-scanner.zip -d /opt/
           export PATH=/opt/sonar-scanner-4.6.2.2472-linux/bin:$PATH
 
+      - name: Fetch remote branches
+        run: git fetch origin
+
       - name: Identify modified files
         id: modified_files
         run: |
-          git fetch origin ${{ github.ref }}
-          MODIFIED_FILES=$(git diff --name-only origin/${{ github.ref }} | tr '\n' ',')
-          echo "::set-output name=files::$MODIFIED_FILES"
+          git diff --name-only HEAD...origin/${{ github.ref }} | tr '\n' ','
 
       - name: Run SonarQube analysis
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_LOGIN: ${{ secrets.SONARQUBE_TOKEN }}
         run: |
-          if [ -z "${{ steps.modified_files.outputs.files }}" ]; then
+          if [ -z "${{ steps.modified_files.outputs.stdout }}" ]; then
             echo "No modified files to analyze"
           else
-            sonar-scanner \
+            /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
               -Dsonar.projectKey=my_project_key \
               -Dsonar.sources=. \
-              -Dsonar.inclusions=${{ steps.modified_files.outputs.files }}
+              -Dsonar.inclusions=${{ steps.modified_files.outputs.stdout }}
           fi
 
 #      - uses: actions/checkout@v4
