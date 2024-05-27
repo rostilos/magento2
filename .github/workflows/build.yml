@@ -35,7 +35,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_LOGIN: ${{ secrets.SONARQUBE_TOKEN }}
         run: |
-          if [ -z "${{ steps.modified_files.outputs.stdout }}" ]; then
+          if [ -z "${{ steps.diff.outputs.modified }}" ]; then
             echo "No modified files to analyze"
           else
             /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
