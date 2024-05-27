@@ -27,7 +27,7 @@ jobs:
       - uses: jitterbit/get-changed-files@v1
         id: diff
         with:
-          format: space-delimited
+          format: csv
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run SonarQube analysis
