@@ -24,13 +24,11 @@ jobs:
           unzip sonar-scanner.zip -d /opt/
           export PATH=/opt/sonar-scanner-4.6.2.2472-linux/bin:$PATH
 
-      - name: Fetch remote branches
-        run: git fetch origin
-
-      - name: Identify modified files
-        id: modified_files
-        run: |
-          git diff --name-only HEAD...origin/${{ github.ref }} | tr '\n' ','
+      - uses: jitterbit/get-changed-files@v1
+        id: diff
+        with:
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run SonarQube analysis
         env:
@@ -43,7 +41,7 @@ jobs:
             /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
               -Dsonar.projectKey=my_project_key \
               -Dsonar.sources=. \
-              -Dsonar.inclusions=${{ steps.modified_files.outputs.stdout }}
+              -Dsonar.inclusions=${{ steps.diff.outputs.modified }}
           fi
 
 #      - uses: actions/checkout@v4
