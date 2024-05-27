@@ -12,16 +12,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SonarQube scanner
+        run: |
+           wget -qO- https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip | sudo unzip -d /opt/
+           export PATH=/opt/sonar-scanner-4.6.2.2472-linux/bin:$PATH
+
+      - name: Identify modified files
+        id: modified_files
+        run: |
+          git fetch origin main
+          MODIFIED_FILES=$(git diff --name-only origin/main | tr '\n' ',')
+          echo "::set-output name=files::$MODIFIED_FILES"
+
+      - name: Run SonarQube analysis
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_LOGIN: ${{ secrets.SONARQUBE_TOKEN }}
+        run: |
+          if [ -z "${{ steps.modified_files.outputs.files }}" ]; then
+            echo "No modified files to analyze"
+          else
+            sonar-scanner \
+              -Dsonar.projectKey=my_project_key \
+              -Dsonar.sources=. \
+              -Dsonar.inclusions=${{ steps.modified_files.outputs.files }}
+          fi
+
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+#      - uses: sonarsource/sonarqube-scan-action@master
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+#      # If you wish to fail your job when the Quality Gate is red, uncomment the
+#      # following lines. This would typically be used to fail a deployment.
+#      # - uses: sonarsource/sonarqube-quality-gate-action@master
+#      #   timeout-minutes: 5
+#      #   env:
+#      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
