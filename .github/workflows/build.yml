@@ -23,7 +23,7 @@ jobs:
           echo "::set-output name=files::$MODIFIED_FILES"
 
       - name: Run SonarQube analysis
-        uses: sonarsource/sonarqube-scan-action@master
+      - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_LOGIN: ${{ secrets.SONARQUBE_TOKEN }}
