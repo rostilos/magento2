@@ -42,6 +42,10 @@ jobs:
               -Dsonar.sources=. \
               -Dsonar.inclusions=${{ steps.diff.outputs.modified }}
           fi
+      - uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 #      - uses: actions/checkout@v4
 #        with:

@@ -58,6 +58,7 @@ class Information
         if (!isset($this->preferences[$className])) {
             $this->preferences[$className] =  $this->objectManagerConfig->getPreference($className);
         }
+        die();
         return $this->preferences[$className];
     }
 
