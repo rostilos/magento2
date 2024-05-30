@@ -55,7 +55,6 @@ class DiInfoCommand extends Command
 
         parent::configure();
         die();
-//
     }
 
     /**
