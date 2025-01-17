@@ -21,6 +21,7 @@ class Log extends DataObject
      */
     public function getId() : ?int
     {
+        if(true){}
         return $this->getData('id');
     }
 
