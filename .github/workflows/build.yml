@@ -1,7 +1,7 @@
 name: Build
 
 on:
-  push:
+  pull_request:
     branches:
       - sonarqube
 
@@ -9,55 +9,16 @@ jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install unzip
-        run: sudo apt-get install -y unzip
-
-      - name: Set up SonarQube scanner
-        run: |
-          wget -qO- https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip > sonar-scanner.zip
-          unzip sonar-scanner.zip -d /opt/
-          export PATH=/opt/sonar-scanner-5.0.1.3006-linux/bin:$PATH
-
-      - uses: jitterbit/get-changed-files@v1
-        id: diff
+      - uses: actions/checkout@v4
         with:
-          format: csv
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run SonarQube analysis
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: sonarsource/sonarqube-scan-action@v3
         env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          if [ -z "${{ steps.diff.outputs.modified }}" ]; then
-            echo "No modified files to analyze"
-          else
-            /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
-              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-              -Dsonar.sources=. \
-              -Dsonar.inclusions=${{ steps.diff.outputs.modified }}
-          fi
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       - uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-#      - uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-#      - uses: sonarsource/sonarqube-scan-action@master
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-#      # If you wish to fail your job when the Quality Gate is red, uncomment the
-#      # following lines. This would typically be used to fail a deployment.
-#      # - uses: sonarsource/sonarqube-quality-gate-action@master
-#      #   timeout-minutes: 5
-#      #   env:
-#      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
