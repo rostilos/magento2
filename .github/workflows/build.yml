@@ -12,29 +12,29 @@ jobs:
     
     steps:
       - name: Get PR branch
-      - uses: xt0rted/pull-request-comment-branch@v1
+        uses: xt0rted/pull-request-comment-branch@v1
         id: comment-branch
 
       - name: Checkout PR branch
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.comment-branch.outputs.head_ref }}
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: SonarQube Scan
-      - uses: sonarsource/sonarqube-scan-action@v3
+        uses: sonarsource/sonarqube-scan-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - name: SonarQube Quality Gate
-      - uses: sonarsource/sonarqube-quality-gate-action@master
+        uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Add comment to PR
-      - uses: actions/github-script@v6
+        uses: actions/github-script@v6
         if: always()
         with:
           script: |
