@@ -1,25 +1,51 @@
 name: Build
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-    branches:
-      - 'sonarqube'
+  issue_comment:
+    types: [created]
 
 jobs:
   build:
-    name: Build and analyze
+    name: SonarQube analyze
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/sonar')
     runs-on: ubuntu-latest
     
     steps:
+      - name: Get PR branch
+      - uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
+      - name: Checkout PR branch
       - uses: actions/checkout@v4
         with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: SonarQube Scan
       - uses: sonarsource/sonarqube-scan-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ variables.SONAR_HOST_URL }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: SonarQube Quality Gate
       - uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Add comment to PR
+      - uses: actions/github-script@v6
+        if: always()
+        with:
+          script: |
+            const name = '${{ github.workflow   }}';
+            const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+            const success = '${{ job.status }}' === 'success';
+            const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\n${url}`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })    
