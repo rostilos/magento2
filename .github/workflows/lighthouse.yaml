@@ -1,0 +1,54 @@
+name: Lighthouse Performance Testing
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for testing'
+        required: true
+        default: 'develop'
+        type: choice
+        options:
+          - master
+
+jobs:
+  lighthouse-test:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.24-dind
+        options: --privileged
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Pull Lighthouse metrics image
+        run: docker pull registry.monteshot.com/library/lighthouse-metrics:latest
+
+      - name: Run Lighthouse tests
+        run: ./scripts/lighthouse.sh
+        env:
+          LIGHTHOUSE_PATHS: '{"home": "/", "category": "/garden-plants/special-deals", "product": "/dwarf-korean-lilac-syringa-shrub-pack-of-three", "cms": "/price-promise" }'
+          PROD_URL: 'https://www.gardeningexpress.co.uk/'
+
+      - name: Upload Lighthouse results as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results-${{ github.event.inputs.environment }}
+          path: |
+            lighthouse-results/*.json
+            lighthouse-results/*.html
+            lighthouse-results/archives/**
+
+#      - name: Upload results to Slack
+#        run: ./upload-slack.sh
+#        env:
+#          DEPLOYMENT_ENV: ${{ github.event.inputs.environment }}
